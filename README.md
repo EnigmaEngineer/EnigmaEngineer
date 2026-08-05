@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="mailto:syedsajidhussain1999@gmail.com"><img src="https://img.shields.io/badge/email-syedsajidhussain1999%40gmail.com-informational?style=flat-square" alt="email"></a>
-  <a href="https://www.linkedin.com/in/fnu-syed-sajid-hussain"><img src="https://img.shields.io/badge/linkedin-connect-0A66C2?style=flat-square&logo=linkedin&logoColor=white" alt="linkedin"></a>
+  <a href="https://www.linkedin.com/in/thesyedsajid"><img src="https://img.shields.io/badge/linkedin-connect-0A66C2?style=flat-square&logo=linkedin&logoColor=white" alt="linkedin"></a>
   <a href="https://github.com/EnigmaEngineer"><img src="https://img.shields.io/badge/github-EnigmaEngineer-181717?style=flat-square&logo=github&logoColor=white" alt="github"></a>
 </p>
 
