@@ -57,20 +57,28 @@ Cloud        AWS · Azure · GCP
 <br>
 
 Ten projects, seven days each. Every one maps to something I have actually done in
-production, so the repo is evidence rather than a tutorial I followed.
+production, so the repo is evidence rather than a tutorial I followed. Numbers below are
+measured on my own machine and reproduced in the repo.
 
 | Project | What it proves | Stack | Status |
 |---|---|---|---|
-| [rag-eval-harness](https://github.com/EnigmaEngineer/rag-eval-harness) | Retrieval that measures itself. Hybrid BM25 and dense search, cross-encoder reranking, recall@k and MRR against a golden set, CI gate on regression | Python · FAISS · sentence-transformers | In progress |
+| [rag-eval-harness](https://github.com/EnigmaEngineer/rag-eval-harness) | Retrieval that measures itself. Hybrid BM25 and dense search, cross-encoder reranking, recall@k and MRR against a golden set. **BM25 alone beat the hybrid on recall@5. The reranker cost 4.4s a query and came off the default path.** | Python · FAISS · sentence-transformers | Complete, 37 commits |
+| [pipeline-observability](https://github.com/EnigmaEngineer/pipeline-observability) | Catching a broken pipeline before the dashboard consumers do. Freshness, volume, schema and distribution monitors with seasonal baselines | Python · Great Expectations | In progress |
 | [streaming-clickstream-lakehouse](https://github.com/EnigmaEngineer/streaming-clickstream-lakehouse) | Late events, watermarks, session windows, exactly-once writes. The parts of streaming that actually break | Kafka · Spark Structured Streaming · Snowflake | Day 1 done, parked |
-| Pipeline observability | Freshness, volume and distribution monitors with seasonal baselines. Catching a broken pipeline before the dashboard does | Airflow · Great Expectations · Snowflake | Planned |
-| Text-to-SQL with guardrails | Schema retrieval, static validation, EXPLAIN cost ceiling, self-correction. The guardrails are the product | LangChain · FAISS · Snowflake | Planned |
+| Text-to-SQL with guardrails | Schema retrieval, static validation, EXPLAIN cost ceiling, self-correction. The guardrails are the product | LangChain · FAISS · Snowflake | Next |
 | Change data capture to warehouse | Idempotent merges under chaos testing. Kill the consumer mid-batch, replay, reconcile clean | Postgres · Debezium · Kafka | Planned |
 | Warehouse with data contracts | A DAG that refuses to publish bad data. Contracts generate both the ingestion checks and the dbt tests | Airflow · dbt · Snowflake | Planned |
-| Feature store and inference | Same feature definition for training and serving, with a skew test that fails CI when they drift | PySpark · Redis · FastAPI | Planned |
+| Feature store and inference | One feature definition for training and serving, with a skew test that fails CI when they drift | PySpark · Redis · FastAPI | Planned |
 | Model CI/CD | Promotion gates. A model cannot reach production unless it beats the incumbent on a frozen holdout | MLflow · GitHub Actions | Planned |
 | PII discovery and governance | Column classification with confidence scoring, masking policies, and an access audit an auditor would accept | Snowflake · Python · spaCy | Planned |
 | Spark job profiler | Reads event logs and says why a job was slow. Skew, spill, wrong partition count | PySpark · pandas | Planned |
+
+**What the eval harness actually found.** 3,212 chunks across 241 docs. BM25 scored
+recall@5 0.700 and MRR@10 0.607 at 1ms a query. Dense scored 0.600 and 0.483 at 23ms. The
+cross-encoder reranker took 4,412ms and did not improve the question it was built to fix,
+so it is off by default. Fusion stayed as a stated design preference, not a measured win.
+Seven of eight quality comparisons move three questions or fewer, and none could reach
+significance at any effect size on a set this small. That is in the README too.
 
 </details>
 
@@ -92,6 +100,19 @@ production, so the repo is evidence rather than a tutorial I followed.
 - Rewrote Python parsers and added Great Expectations validation, cutting pipeline errors by over 70%
 - Containerized pipelines on AWS, 25% lower processing latency
 - Enforced idempotency in PySpark and SQL merge logic so reruns stop duplicating rows
+
+</details>
+
+<details>
+<summary><b>Earlier projects</b></summary>
+<br>
+
+| Project | What it does | Stack |
+|---|---|---|
+| [Production-RAG-Enterprise-Document-Assistant](https://github.com/EnigmaEngineer/Production-RAG-Enterprise-Document-Assistant) | Hybrid retrieval with cross-encoder reranking, citations, vLLM serving, Kubernetes deployment, evaluation framework and CI/CD | Python · FAISS · FastAPI · Kubernetes |
+| [Real-Time-AI-Chatbot-with-Guardrails-and-Monitoring](https://github.com/EnigmaEngineer/Real-Time-AI-Chatbot-with-Guardrails-and-Monitoring) | Support agent with RAG, safety guardrails, drift detection, Prometheus and Grafana monitoring, A/B testing | Python · RAG · Prometheus · Grafana |
+| [localrag](https://github.com/EnigmaEngineer/localrag) | Local-first RAG pipeline with Ollama and OpenAI support | Python · Ollama |
+| [rolecolor-ai](https://github.com/EnigmaEngineer/rolecolor-ai) | Resume analyzer using NLP | Python · NLP |
 
 </details>
 
