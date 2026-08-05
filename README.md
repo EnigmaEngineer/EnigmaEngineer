@@ -1,13 +1,17 @@
-<h1 align="center">Syed Sajid Hussain</h1>
+<h1 align="center">Hey, I'm Syed 👋</h1>
 
 <p align="center">
-  <b>AI Data Engineer</b> · Streaming and batch pipelines · Retrieval systems that report their own accuracy
+  <img src="https://komarev.com/ghpvc/?username=EnigmaEngineer&label=Profile%20Views&color=brightgreen&style=flat-square" alt="profile views">
 </p>
 
 <p align="center">
-  <a href="mailto:syedsajidhussain1999@gmail.com"><img src="https://img.shields.io/badge/email-syedsajidhussain1999%40gmail.com-informational?style=flat-square" alt="email"></a>
-  <a href="https://www.linkedin.com/in/thesyedsajid"><img src="https://img.shields.io/badge/linkedin-connect-0A66C2?style=flat-square&logo=linkedin&logoColor=white" alt="linkedin"></a>
-  <a href="https://github.com/EnigmaEngineer"><img src="https://img.shields.io/badge/github-EnigmaEngineer-181717?style=flat-square&logo=github&logoColor=white" alt="github"></a>
+  <b>AI Data Engineer · Streaming and Batch Pipelines · Retrieval Systems That Report Their Own Accuracy</b>
+</p>
+
+<p align="center">
+  <a href="mailto:syedsajidhussain1999@gmail.com"><img src="https://img.shields.io/badge/email-syedsajidhussain1999%40gmail.com-2b2b2b?style=flat-square&labelColor=4a4a4a" alt="email"></a>
+  <a href="https://www.linkedin.com/in/thesyedsajid"><img src="https://img.shields.io/badge/linkedin-thesyedsajid-2b2b2b?style=flat-square&labelColor=4a4a4a" alt="linkedin"></a>
+  <a href="https://github.com/EnigmaEngineer"><img src="https://img.shields.io/badge/github-EnigmaEngineer-2b2b2b?style=flat-square&labelColor=4a4a4a&logo=github&logoColor=white" alt="github"></a>
 </p>
 
 ---
