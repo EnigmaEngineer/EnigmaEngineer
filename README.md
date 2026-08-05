@@ -23,7 +23,8 @@ README says so.
 ---
 
 <details open>
-<summary><h3>Currently</h3></summary>
+<summary><b>Currently</b></summary>
+<br>
 
 | | |
 |---|---|
@@ -35,7 +36,8 @@ README says so.
 </details>
 
 <details open>
-<summary><h3>Stack</h3></summary>
+<summary><b>Stack</b></summary>
+<br>
 
 ```
 Languages    Python · SQL · Scala · Java · R
@@ -51,7 +53,8 @@ Cloud        AWS · Azure · GCP
 </details>
 
 <details open>
-<summary><h3>Building in public</h3></summary>
+<summary><b>Building in public</b></summary>
+<br>
 
 Ten projects, seven days each. Every one maps to something I have actually done in
 production, so the repo is evidence rather than a tutorial I followed.
@@ -72,7 +75,8 @@ production, so the repo is evidence rather than a tutorial I followed.
 </details>
 
 <details open>
-<summary><h3>Experience</h3></summary>
+<summary><b>Experience</b></summary>
+<br>
 
 **Data Engineer and AI Developer** · Infoville Solutions · 2020 to 2023
 
@@ -92,7 +96,8 @@ production, so the repo is evidence rather than a tutorial I followed.
 </details>
 
 <details>
-<summary><h3>Publications and certifications</h3></summary>
+<summary><b>Publications and certifications</b></summary>
+<br>
 
 **Publication**
 High Tension Line Surveillance Robot · International Journal of Applied Engineering Research
