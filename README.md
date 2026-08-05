@@ -103,6 +103,30 @@ significance at any effect size on a set this small. That is in the README too.
 
 </details>
 
+<details open>
+<summary><b>Notable wins</b></summary>
+<br>
+
+From production work on compliance-driven data platforms.
+
+- **300ms to under 50ms query latency.** Kafka and PySpark sessionization with feature extraction on a real-time stream
+- **15 minutes to 90 seconds report execution.** Redefined Snowflake clustering keys and rewrote the underlying SQL
+- **70% fewer pipeline errors.** Rewrote failing Airflow DAG parsers and added Great Expectations validation at ingestion
+- **40% fewer deployment failures.** MLOps and CI/CD workflows with automated testing and staged rollout
+- **22% better retrieval relevance.** LangChain and FAISS hybrid semantic search in a production RAG pipeline
+- **Sub-150ms inference latency.** FastAPI model serving, containerized, under real traffic
+- **50GB processed daily.** Spark, Airflow and dbt pipelines, led as a team
+- **15% better prediction accuracy.** Demand forecasting and anomaly detection on high-volume transactional data
+- **25% lower processing latency.** Containerized Python pipelines on AWS
+
+From the current build-in-public program, measured on my own machine.
+
+- **BM25 at 1ms beat dense retrieval at 23ms** on recall@5 over 3,212 Spark doc chunks. The simplest method won
+- **Cross-encoder reranking cost 4,412ms a query** for no gain on the question it was built to fix, so it came off the default path
+- **Every number above is reproducible.** Each repo ships the command that produced it
+
+</details>
+
 <details>
 <summary><b>Earlier projects</b></summary>
 <br>
