@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <b>AI Data Engineer · Turning messy data into production ML and LLM systems · Retrieval Systems That Report Their Own Accuracy</b>
+  <b>AI Data Engineer · Turning messy data into production ML and LLM systems · Retrieval Systems that report their own accuracy</b>
 </p>
 
 <p align="center">
@@ -81,14 +81,14 @@ measured on my own machine and reproduced in the repo.
 | Warehouse with data contracts | A DAG that refuses to publish bad data. Contracts generate both the ingestion checks and the dbt tests | Airflow · dbt · Snowflake | Planned |
 | Feature store and inference | One feature definition for training and serving, with a skew test that fails CI when they drift | PySpark · Redis · FastAPI | Planned |
 | Model CI/CD | Promotion gates. A model cannot reach production unless it beats the incumbent on a frozen holdout | MLflow · GitHub Actions | Planned |
-| PII discovery and governance | Column classification with confidence scoring, masking policies, and an access audit an auditor would accept | Snowflake · Python · spaCy | Planned |
+| PII discovery and governance | Column classification with confidence scoring, masking policies and an access audit an auditor would accept | Snowflake · Python · spaCy | Planned |
 | Spark job profiler | Reads event logs and says why a job was slow. Skew, spill, wrong partition count | PySpark · pandas | Planned |
 
 **What the eval harness actually found.** 3,212 chunks across 241 docs. BM25 scored
 recall@5 0.700 and MRR@10 0.607 at 1ms a query. Dense scored 0.600 and 0.483 at 23ms. The
 cross encoder reranker took 4,412ms and did not improve the question it was built to fix,
 so it is off by default. Fusion stayed as a stated design preference, not a measured win.
-Seven of eight quality comparisons move three questions or fewer, and none could reach
+Seven of eight quality comparisons move three questions or fewer and none could reach
 significance at any effect size on a set this small. That is in the README too.
 
 </details>
