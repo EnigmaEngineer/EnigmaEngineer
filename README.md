@@ -23,7 +23,7 @@ A few things I've shipped:
 
 Dropped pipeline failures 70%+ with Great Expectations validation, dead letter queues and self healing Airflow DAGs.
 
-Built production RAG on LangChain and FAISS. Hybrid BM25 and semantic search with cross-encoder re-ranking, which lifted retrieval accuracy 20%+.
+Built production RAG on LangChain and FAISS. Hybrid BM25 and semantic search with cross encoder re ranking, which lifted retrieval accuracy 20%+.
 
 Served models from FastAPI on Kubernetes at ~500 req/s and sub 150ms p95. Drift detection on KS and CUSUM and PSI caught real shifts inside 24 hours.
 
@@ -80,18 +80,19 @@ measured on my own machine and reproduced in the repo.
 | PII discovery and governance | Column classification with confidence scoring, masking policies and an access audit an auditor would accept | Snowflake · Python · spaCy | Planned |
 | Spark job profiler | Reads event logs and says why a job was slow. Skew, spill, wrong partition count | PySpark · pandas | Planned |
 
-**What the eval harness actually found.** 3,212 chunks across 241 docs. BM25 scored
-recall@5 0.700 and MRR@10 0.607 at 1ms a query. Dense scored 0.600 and 0.483 at 23ms. The
-cross-encoder reranker took 4,412ms and did not improve the question it was built to fix,
-so it is off by default. Fusion stayed as a stated design preference, not a measured win.
-Seven of eight quality comparisons move three questions or fewer and none could reach
-significance at any effect size on a set this small. That is in the README too.
+**What the eval harness actually found.** 3,212 chunks across 241 docs. BM25 scored recall@5 0.700 and MRR@10 0.607 at 1ms a query. Dense scored 0.600 and 0.483 at 23ms. The cross encoder reranker took 4,412ms and did not improve the question it was built to fix, so it is off by default. Fusion stayed as a stated design preference, not a measured win.Seven of eight quality comparisons move three questions or fewer and none could reach significance at any effect size on a set this small. That is in the README too.
 
 </details>
 
 <details open>
 <summary><b>Experience</b></summary>
 <br>
+
+**Data and ML Intern** · Rediantt LLC · 2025
+
+- Rewrote Python parsers and added Great Expectations validation, cutting pipeline errors by over 70%
+- Containerized pipelines on AWS, 25% lower processing latency
+- Enforced idempotency in PySpark and SQL merge logic so reruns stop duplicating rows
 
 **Data Engineer and AI Developer** · Infoville Solutions · 2020 to 2023
 
@@ -101,12 +102,6 @@ significance at any effect size on a set this small. That is in the README too.
 - LangChain and FAISS hybrid semantic search in production, 22% better retrieval relevance
 - FastAPI model serving under 150ms inference latency
 - MLOps and CI/CD workflows, 40% fewer deployment failures
-
-**Data and ML Intern** · Rediantt LLC · 2025
-
-- Rewrote Python parsers and added Great Expectations validation, cutting pipeline errors by over 70%
-- Containerized pipelines on AWS, 25% lower processing latency
-- Enforced idempotency in PySpark and SQL merge logic so reruns stop duplicating rows
 
 </details>
 
@@ -140,7 +135,7 @@ From the current build in public program, measured on my own machine.
 
 | Project | What it does | Stack |
 |---|---|---|
-| [Production RAG Enterprise Document Assistant](https://github.com/EnigmaEngineer/Production-RAG-Enterprise-Document-Assistant) | Hybrid retrieval with cross-encoder reranking, citations, vLLM serving, Kubernetes deployment, evaluation framework and CI/CD | Python · FAISS · FastAPI · Kubernetes |
+| [Production RAG Enterprise Document Assistant](https://github.com/EnigmaEngineer/Production-RAG-Enterprise-Document-Assistant) | Hybrid retrieval with cross encoder reranking, citations, vLLM serving, Kubernetes deployment, evaluation framework and CI/CD | Python · FAISS · FastAPI · Kubernetes |
 | [Real Time AI Chatbot with Guardrails and Monitoring](https://github.com/EnigmaEngineer/Real-Time-AI-Chatbot-with-Guardrails-and-Monitoring) | Support agent with RAG, safety guardrails, drift detection, Prometheus and Grafana monitoring, A/B testing | Python · RAG · Prometheus · Grafana |
 | [localrag](https://github.com/EnigmaEngineer/localrag) | Local first RAG pipeline with Ollama and OpenAI support | Python · Ollama |
 | [rolecolor ai](https://github.com/EnigmaEngineer/rolecolor-ai) | Resume analyzer using NLP | Python · NLP |
