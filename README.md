@@ -16,21 +16,18 @@
 ---
 
 Three years building data pipelines in compliance driven environments. Spark, Kafka,
-Snowflake, Airflow. Now applying the same instinct to AI systems, where the interesting
+Snowflake and Airflow. Now applying the same instinct to AI systems, where the interesting
 question is not whether it produces an answer but whether you can prove the answer is right.
 
 A few things I've shipped:
 
-Cut a 50TB/day clickstream BigQuery bill ~72% via partitioning, clustering, BI Engine and slot management.
-
 Dropped pipeline failures 70%+ with Great Expectations validation, dead letter queues and self healing Airflow DAGs.
 
-Built production RAG (LangChain, FAISS, hybrid BM25 + semantic search, cross encoder re ranking) that lifted retrieval accuracy 20%+.
+Built production RAG on LangChain and FAISS. Hybrid BM25 and semantic search with cross-encoder re-ranking, which lifted retrieval accuracy 20%+.
 
-Served models from FastAPI on Kubernetes at ~500 req/s and sub 150ms p95, with drift detection (KS, CUSUM, PSI) catching real shifts inside 24 hours.
+Served models from FastAPI on Kubernetes at ~500 req/s and sub 150ms p95. Drift detection on KS and CUSUM and PSI caught real shifts inside 24 hours.
 
-I am currently building ten projects in public, one week at a time. Every repo ships with measured numbers and an honest limitations section. Where something did not work, the README says so.
-  -
+I am currently building ten projects in public. Every repo ships with measured numbers and an honest limitations section. Where something did not work, the README says so.
 
 <details open>
 <summary><b>Currently</b></summary>
@@ -38,7 +35,7 @@ I am currently building ten projects in public, one week at a time. Every repo s
 
 | | |
 |---|---|
-| **Building** | Ten data engineering and AI projects in public. Streaming, CDC, orchestration, retrieval, MLOps. One day of work per week, committed publicly. |
+| **Building** | Ten data engineering and AI projects in public. Streaming, CDC, orchestration, retrieval, MLOps. Committed publicly as it is built. |
 | **Focus** | Retrieval systems with real evaluation. Recall@k and MRR on a golden set, not vibes. |
 | **Background** | Data Engineer and AI Developer. Spark and Kafka pipelines at 50GB/day, Snowflake tuning, production RAG. |
 | **Education** | M.S. Information Systems, Cleveland State University |
@@ -55,7 +52,7 @@ Processing   Apache Spark · Structured Streaming · PySpark · pandas
 Streaming    Apache Kafka · Debezium · exactly once sinks
 Warehouse    Snowflake · DuckDB · dbt · dimensional modelling
 Orchestrate  Apache Airflow · Great Expectations · data contracts
-AI / ML      LangChain · FAISS · sentence transformers · scikit learn
+AI / ML      LangChain · FAISS · sentence-transformers · scikit-learn
 Serving      FastAPI · Docker · MLflow
 Cloud        AWS · Azure · GCP
 ```
@@ -72,10 +69,10 @@ measured on my own machine and reproduced in the repo.
 
 | Project | What it proves | Stack | Status |
 |---|---|---|---|
-| [rag eval harness](https://github.com/EnigmaEngineer/rag-eval-harness) | Retrieval that measures itself. Hybrid BM25 and dense search, cross encoder reranking, recall@k and MRR against a golden set. **BM25 alone beat the hybrid on recall@5. The reranker cost 4.4s a query and came off the default path.** | Python · FAISS · sentence transformers | Complete, 37 commits |
-| [pipeline observability](https://github.com/EnigmaEngineer/pipeline-observability) | Catching a broken pipeline before the dashboard consumers do. Freshness, volume, schema and distribution monitors with seasonal baselines | Python · Great Expectations | In progress |
-| [streaming clickstream lakehouse](https://github.com/EnigmaEngineer/streaming-clickstream-lakehouse) | Late events, watermarks, session windows, exactly once writes. The parts of streaming that actually break | Kafka · Spark Structured Streaming · Snowflake | Day 1 done, parked |
-| Text to SQL with guardrails | Schema retrieval, static validation, EXPLAIN cost ceiling, self correction. The guardrails are the product | LangChain · FAISS · Snowflake | Next |
+| [rag-eval-harness](https://github.com/EnigmaEngineer/rag-eval-harness) | Retrieval that measures itself. Hybrid BM25 and dense search, cross-encoder reranking, recall@k and MRR against a golden set. **BM25 alone beat the hybrid on recall@5. The reranker cost 4.4s a query and came off the default path.** | Python · FAISS · sentence-transformers | Complete, 37 commits |
+| [pipeline-observability](https://github.com/EnigmaEngineer/pipeline-observability) | Catching a broken pipeline before the dashboard consumers do. Freshness, volume, schema and distribution monitors. **The volume monitor's own fire rate was measured out of sample and failed its gate, so it no longer pages. Including on the fault it was built for.** | Python · DuckDB | Complete, 36 commits |
+| [text-to-sql-guardrails](https://github.com/EnigmaEngineer/text-to-sql-guardrails) | Schema retrieval, static validation, EXPLAIN cost ceiling, self correction. The guardrails are the product. **A system with no guardrails at all scores 73.3% on the frozen set against this repo's 90%, so every guardrail in it is worth five questions. The guard is scored directly and no model is called.** | Python · DuckDB | Complete, 42 commits |
+| [streaming-clickstream-lakehouse](https://github.com/EnigmaEngineer/streaming-clickstream-lakehouse) | Late events, watermarks, session windows, exactly once writes. The parts of streaming that actually break | Kafka · Spark Structured Streaming · Snowflake | In progress, day 2 of 7 |
 | Change data capture to warehouse | Idempotent merges under chaos testing. Kill the consumer mid batch, replay, reconcile clean | Postgres · Debezium · Kafka | Planned |
 | Warehouse with data contracts | A DAG that refuses to publish bad data. Contracts generate both the ingestion checks and the dbt tests | Airflow · dbt · Snowflake | Planned |
 | Feature store and inference | One feature definition for training and serving, with a skew test that fails CI when they drift | PySpark · Redis · FastAPI | Planned |
@@ -85,7 +82,7 @@ measured on my own machine and reproduced in the repo.
 
 **What the eval harness actually found.** 3,212 chunks across 241 docs. BM25 scored
 recall@5 0.700 and MRR@10 0.607 at 1ms a query. Dense scored 0.600 and 0.483 at 23ms. The
-cross encoder reranker took 4,412ms and did not improve the question it was built to fix,
+cross-encoder reranker took 4,412ms and did not improve the question it was built to fix,
 so it is off by default. Fusion stayed as a stated design preference, not a measured win.
 Seven of eight quality comparisons move three questions or fewer and none could reach
 significance at any effect size on a set this small. That is in the README too.
@@ -143,7 +140,7 @@ From the current build in public program, measured on my own machine.
 
 | Project | What it does | Stack |
 |---|---|---|
-| [Production RAG Enterprise Document Assistant](https://github.com/EnigmaEngineer/Production-RAG-Enterprise-Document-Assistant) | Hybrid retrieval with cross encoder reranking, citations, vLLM serving, Kubernetes deployment, evaluation framework and CI/CD | Python · FAISS · FastAPI · Kubernetes |
+| [Production RAG Enterprise Document Assistant](https://github.com/EnigmaEngineer/Production-RAG-Enterprise-Document-Assistant) | Hybrid retrieval with cross-encoder reranking, citations, vLLM serving, Kubernetes deployment, evaluation framework and CI/CD | Python · FAISS · FastAPI · Kubernetes |
 | [Real Time AI Chatbot with Guardrails and Monitoring](https://github.com/EnigmaEngineer/Real-Time-AI-Chatbot-with-Guardrails-and-Monitoring) | Support agent with RAG, safety guardrails, drift detection, Prometheus and Grafana monitoring, A/B testing | Python · RAG · Prometheus · Grafana |
 | [localrag](https://github.com/EnigmaEngineer/localrag) | Local first RAG pipeline with Ollama and OpenAI support | Python · Ollama |
 | [rolecolor ai](https://github.com/EnigmaEngineer/rolecolor-ai) | Resume analyzer using NLP | Python · NLP |
