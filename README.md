@@ -63,9 +63,9 @@ Cloud        AWS · Azure · GCP
 <summary><b>Building in public</b></summary>
 <br>
 
-Ten projects, seven days each. Every one maps to something I have actually done in
-production, so the repo is evidence rather than a tutorial I followed. Numbers below are
-measured on my own machine and reproduced in the repo.
+Ten projects. Every one maps to something I have actually done in production, so the repo
+is evidence rather than a tutorial I followed. Numbers below are measured on my own machine
+and reproduced in the repo.
 
 | Project | What it proves | Stack | Status |
 |---|---|---|---|
