@@ -73,7 +73,7 @@ and reproduced in the repo.
 | [pipeline-observability](https://github.com/EnigmaEngineer/pipeline-observability) | Catching a broken pipeline before the dashboard consumers do. Freshness, volume, schema and distribution monitors. **The volume monitor's own fire rate was measured out of sample and failed its gate, so it no longer pages. Including on the fault it was built for.** | Python · DuckDB | Complete, 36 commits |
 | [text-to-sql-guardrails](https://github.com/EnigmaEngineer/text-to-sql-guardrails) | Schema retrieval, static validation, EXPLAIN cost ceiling, self correction. The guardrails are the product. **A system with no guardrails at all scores 73.3% on the frozen set against this repo's 90%, so every guardrail in it is worth five questions. The guard is scored directly and no model is called.** | Python · DuckDB | Complete, 42 commits |
 | [streaming-clickstream-lakehouse](https://github.com/EnigmaEngineer/streaming-clickstream-lakehouse) | Late events, watermarks, session windows, exactly once writes. The parts of streaming that actually break. **Delete the checkpoint and reprocess everything and the table is byte identical. Delete the table and keep the checkpoint and the job exits clean with zero rows. The checkpoint is a progress optimisation carrying a correctness liability.** | Kafka · Spark Structured Streaming · Snowflake | Complete, 33 commits |
-| Change data capture to warehouse | Idempotent merges under chaos testing. Kill the consumer mid batch, replay, reconcile clean | Postgres · Debezium · Kafka | Planned |
+| [cdc-postgres-warehouse](https://github.com/EnigmaEngineer/cdc-postgres-warehouse) | Idempotent merges under chaos testing. Kill the consumer mid batch, replay, reconcile clean. **The merge being idempotent is not the same as being able to resume. The ledger stored a batch number, and a restart that batches differently drops everything between the two resume points. 2,100 records at a restart batch of 600 against an original 250, with nothing reporting an error.** | Postgres · logical decoding · Debezium · DuckDB | Complete, 38 commits |
 | Warehouse with data contracts | A DAG that refuses to publish bad data. Contracts generate both the ingestion checks and the dbt tests | Airflow · dbt · Snowflake | Planned |
 | Feature store and inference | One feature definition for training and serving, with a skew test that fails CI when they drift | PySpark · Redis · FastAPI | Planned |
 | Model CI/CD | Promotion gates. A model cannot reach production unless it beats the incumbent on a frozen holdout | MLflow · GitHub Actions | Planned |
@@ -125,7 +125,9 @@ From the current build in public program, measured on my own machine.
 
 - **BM25 at 1ms beat dense retrieval at 23ms** on recall@5 over 3,212 Spark doc chunks. The simplest method won
 - **Cross encoder reranking cost 4,412ms a query** for no gain on the question it was built to fix, so it came off the default path
-- **Every number above is reproducible.** Each repo ships the command that produced it
+- **A restart lost 2,100 records silently** because the resume point was a batch number rather than an offset. Undershoot the original batch size and idempotency covers it. Overshoot and the loss is exactly the size difference times the batches already applied
+- **Splitting a Debezium connector per table cost 3.98x the transaction framing** to deliver the identical 880 row changes, because BEGIN and COMMIT are transaction scoped and a publication does not filter them
+- **Every number above is reproducible.** Each repo ships the command that produced it, and one repo re-runs those commands and grades its own README against them
 
 </details>
 
