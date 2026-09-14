@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <b>AI Data Engineer · Turning messy data into production ML and LLM systems · Retrieval Systems that report their own accuracy</b>
+  <b>AI Data Engineer · Pipelines and ML systems that measure whether they actually work</b>
 </p>
 
 <p align="center">
@@ -36,7 +36,7 @@ I am currently building ten projects in public. Every repo ships with measured n
 | | |
 |---|---|
 | **Building** | Ten data engineering and AI projects in public. Streaming, CDC, orchestration, retrieval, MLOps. Committed publicly as it is built. |
-| **Focus** | Retrieval systems with real evaluation. Recall@k and MRR on a golden set, not vibes. |
+| **Focus** | Systems that report their own accuracy. Measured out of sample, with the failures left in the README. |
 | **Background** | Data Engineer and AI Developer. Spark and Kafka pipelines at 50GB/day, Snowflake tuning, production RAG. |
 | **Education** | M.S. Information Systems, Cleveland State University |
 
@@ -69,18 +69,18 @@ and reproduced in the repo.
 
 | Project | What it proves | Stack | Status |
 |---|---|---|---|
-| [rag-eval-harness](https://github.com/EnigmaEngineer/rag-eval-harness) | Retrieval that measures itself. Hybrid BM25 and dense search, cross-encoder reranking, recall@k and MRR against a golden set. **BM25 alone beat the hybrid on recall@5. The reranker cost 4.4s a query and came off the default path.** | Python · FAISS · sentence-transformers | Complete, 37 commits |
-| [pipeline-observability](https://github.com/EnigmaEngineer/pipeline-observability) | Catching a broken pipeline before the dashboard consumers do. Freshness, volume, schema and distribution monitors. **The volume monitor's own fire rate was measured out of sample and failed its gate, so it no longer pages. Including on the fault it was built for.** | Python · DuckDB | Complete, 36 commits |
-| [text-to-sql-guardrails](https://github.com/EnigmaEngineer/text-to-sql-guardrails) | Schema retrieval, static validation, EXPLAIN cost ceiling, self correction. The guardrails are the product. **A system with no guardrails at all scores 73.3% on the frozen set against this repo's 90%, so every guardrail in it is worth five questions. The guard is scored directly and no model is called.** | Python · DuckDB | Complete, 42 commits |
-| [streaming-clickstream-lakehouse](https://github.com/EnigmaEngineer/streaming-clickstream-lakehouse) | Late events, watermarks, session windows, exactly once writes. The parts of streaming that actually break. **Delete the checkpoint and reprocess everything and the table is byte identical. Delete the table and keep the checkpoint and the job exits clean with zero rows. The checkpoint is a progress optimisation carrying a correctness liability.** | Kafka · Spark Structured Streaming · Snowflake | Complete, 33 commits |
+| [rag-eval-harness](https://github.com/EnigmaEngineer/rag-eval-harness) | Retrieval that measures itself. Hybrid BM25 and dense search, cross-encoder reranking, recall@k and MRR against a golden set. **BM25 alone beat the hybrid on recall@5. The reranker cost 4.4s a query and came off the default path.** | Python · FAISS · sentence-transformers | Complete, 42 commits |
+| [pipeline-observability](https://github.com/EnigmaEngineer/pipeline-observability) | Catching a broken pipeline before the dashboard consumers do. Freshness, volume, schema and distribution monitors. **The volume monitor's own fire rate was measured out of sample and failed its gate, so it no longer pages. Including on the fault it was built for.** | Python · DuckDB | Complete, 39 commits |
+| [text-to-sql-guardrails](https://github.com/EnigmaEngineer/text-to-sql-guardrails) | Schema retrieval, static validation, EXPLAIN cost ceiling, self correction. The guardrails are the product. **A system with no guardrails at all scores 73.3% on the frozen set against this repo's 90%, so every guardrail in it is worth five questions. The guard is scored directly and no model is called.** | Python · DuckDB | Complete, 44 commits |
+| [streaming-clickstream-lakehouse](https://github.com/EnigmaEngineer/streaming-clickstream-lakehouse) | Late events, watermarks, session windows, exactly once writes. The parts of streaming that actually break. **Delete the checkpoint and reprocess everything and the table is byte identical. Delete the table and keep the checkpoint and the job exits clean with zero rows. The checkpoint is a progress optimisation carrying a correctness liability.** | Kafka · Spark Structured Streaming · DuckDB | Complete, 35 commits |
 | [cdc-postgres-warehouse](https://github.com/EnigmaEngineer/cdc-postgres-warehouse) | Idempotent merges under chaos testing. Kill the consumer mid batch, replay, reconcile clean. **The merge being idempotent is not the same as being able to resume. The ledger stored a batch number, and a restart that batches differently drops everything between the two resume points. 2,100 records at a restart batch of 600 against an original 250, with nothing reporting an error.** | Postgres · logical decoding · Debezium · DuckDB | Complete, 38 commits |
-| Warehouse with data contracts | A DAG that refuses to publish bad data. Contracts generate both the ingestion checks and the dbt tests | Airflow · dbt · Snowflake | Planned |
-| Feature store and inference | One feature definition for training and serving, with a skew test that fails CI when they drift | PySpark · Redis · FastAPI | Planned |
-| Model CI/CD | Promotion gates. A model cannot reach production unless it beats the incumbent on a frozen holdout | MLflow · GitHub Actions | Planned |
+| [warehouse-data-contracts](https://github.com/EnigmaEngineer/warehouse-data-contracts) | A DAG that refuses to publish bad data. Contracts generate both the ingestion checks and the dbt tests. **20 single column constraints over 179,314 real rows found nothing at all. Three checks reading two columns found 572 bad rows. The rule shape was the problem and no amount of threshold tuning would have reached it.** | Airflow · dbt · DuckDB | Complete, 40 commits |
+| [feature-store-realtime](https://github.com/EnigmaEngineer/feature-store-realtime) | One feature definition for training and serving, with a skew test that fails CI when they drift. **The drift monitor reports nothing while 769,489 of 1,371,923 served feature cells are wrong and 16,357 requests flip their decision. Staleness is a per row error and a distribution monitor cannot see it.** | PySpark · Redis · FastAPI | Complete, 38 commits |
+| [model-cicd-registry](https://github.com/EnigmaEngineer/model-cicd-registry) | Promotion gates. A model cannot reach production unless it beats the incumbent on a holdout both are scored on. **Comparing the two numbers the runs recorded compares two different test sets. Moving only the random seed moves that number by 95 times the smallest real difference the gate can detect.** | MLflow · Python | In progress, 21 commits |
 | PII discovery and governance | Column classification with confidence scoring, masking policies and an access audit an auditor would accept | Snowflake · Python · spaCy | Planned |
 | Spark job profiler | Reads event logs and says why a job was slow. Skew, spill, wrong partition count | PySpark · pandas | Planned |
 
-**What the eval harness actually found.** 3,212 chunks across 241 docs. BM25 scored recall@5 0.700 and MRR@10 0.607 at 1ms a query. Dense scored 0.600 and 0.483 at 23ms. The cross encoder reranker took 4,412ms and did not improve the question it was built to fix, so it is off by default. Fusion stayed as a stated design preference, not a measured win. Seven of eight quality comparisons move three questions or fewer and none could reach significance at any effect size on a set this small. That is in the README too.
+**The most recent one, from the promotion gate.** The obvious gate is one line. Compare the candidate's holdout score against the incumbent's and promote if it wins. Both numbers are sitting in the tracking store. The problem is that every training run generates its own dataset from its own config, so the number each one recorded was measured on rows nothing else will ever see. Holding the model config completely still and moving only the random seed, holdout log loss ran 0.341545 to 0.449239 across twelve runs. The gap the gate exists to detect, a four hundred epoch model against a one epoch model on one holdout, is 0.192633. So the draw alone was worth 56% of the signal. The gate builds one holdout and scores both models on it now, and the smallest real difference it can call at all turned out to be 0.0011 on 5,000 rows, which makes the noise it used to read 95 times wider than the smallest thing it could see.
 
 </details>
 
@@ -127,6 +127,9 @@ From the current build in public program, measured on my own machine.
 - **Cross encoder reranking cost 4,412ms a query** for no gain on the question it was built to fix, so it came off the default path
 - **A restart lost 2,100 records silently** because the resume point was a batch number rather than an offset. Undershoot the original batch size and idempotency covers it. Overshoot and the loss is exactly the size difference times the batches already applied
 - **Splitting a Debezium connector per table cost 3.98x the transaction framing** to deliver the identical 880 row changes, because BEGIN and COMMIT are transaction scoped and a publication does not filter them
+- **20 single column data quality rules over 179,314 real rows caught nothing.** Three rules reading two columns caught 572. 493 requests closed with no closing date and 12 closed before they were created. The rule shape was the problem, so tuning the thresholds would never have found it
+- **A drift monitor sat green while more than half the served feature vectors were wrong.** 769,489 of 1,371,923 cells, and 16,357 requests flipping their decision, against a drift index that never got above 0.0034. Staleness is a per row error and a distribution monitor is blind to it by construction
+- **A promotion gate was comparing two models on two different test sets.** Moving only the random seed moved the recorded metric by 95 times the smallest real difference the gate could detect
 - **Every number above is reproducible.** Each repo ships the command that produced it, and one repo re-runs those commands and grades its own README against them
 
 </details>
