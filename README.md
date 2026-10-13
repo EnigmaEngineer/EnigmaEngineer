@@ -1,10 +1,6 @@
 <h1 align="center">Hey, I'm Sajid 👋</h1>
 
 <p align="center">
-  <img src="https://komarev.com/ghpvc/?username=EnigmaEngineer&label=Profile%20Views&color=brightgreen&style=flat-square" alt="profile views">
-</p>
-
-<p align="center">
   <b>AI Data Engineer · Pipelines and ML systems that measure whether they actually work</b>
 </p>
 
